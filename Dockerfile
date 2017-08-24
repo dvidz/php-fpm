@@ -1,14 +1,15 @@
-FROM php:7.1.0-fpm
+FROM php:5.6-fpm
 
 MAINTAINER David Souvignon <david.souvignon@gmail.com>
 
-ENV PHP_APCU_VERSION 5.1.8
+ENV PHP_APCU_VERSION 4.0.6
 ENV PHP_XDEBUG_VERSION 2.5.0
 
 RUN apt-get update \
     && apt-get install -y \
         libicu-dev \
         zlib1g-dev \
+        php-pear \
 
     && docker-php-source extract \
     && curl -L -o /tmp/apcu-$PHP_APCU_VERSION.tgz https://pecl.php.net/get/apcu-$PHP_APCU_VERSION.tgz \
@@ -29,7 +30,7 @@ RUN apt-get update \
         pdo_mysql \
         xdebug \
         zip \
-    && pecl install apcu_bc-1.0.3 \
+    && pecl install apcu-$PHP_APCU_VERSION \
     && docker-php-source delete \
     && php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/usr/local/bin --filename=composer \
     && chmod +x /usr/local/bin/composer
