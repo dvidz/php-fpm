@@ -1,4 +1,4 @@
-FROM php:7.1.0-fpm
+FROM php:7.1.8-fpm
 
 MAINTAINER David Souvignon <david.souvignon@gmail.com>
 
